@@ -1,0 +1,1055 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Тесты по социальному проектированию</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8f9fa;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #4CAF50, #2E7D32);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-size: 16px;
+            opacity: 0.9;
+            margin-bottom: 20px;
+        }
+        
+        .test-selector {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .test-btn {
+            padding: 12px 25px;
+            background-color: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 2px solid white;
+            border-radius: 30px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .test-btn:hover {
+            background-color: white;
+            color: #2E7D32;
+        }
+        
+        .test-btn.active {
+            background-color: white;
+            color: #2E7D32;
+        }
+        
+        .test-info {
+            display: flex;
+            justify-content: space-between;
+            background-color: #f1f8e9;
+            padding: 15px 30px;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .test-title {
+            font-size: 20px;
+            color: #2E7D32;
+            font-weight: bold;
+        }
+        
+        .question-counter {
+            background-color: #4CAF50;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+        }
+        
+        .content {
+            padding: 30px;
+            min-height: 500px;
+        }
+        
+        .test-intro {
+            text-align: center;
+            padding: 50px 20px;
+        }
+        
+        .test-intro h2 {
+            color: #2E7D32;
+            margin-bottom: 20px;
+        }
+        
+        .test-intro p {
+            margin-bottom: 30px;
+            font-size: 18px;
+        }
+        
+        .start-btn {
+            padding: 15px 40px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .start-btn:hover {
+            background-color: #388E3C;
+        }
+        
+        .question-container {
+            display: none;
+        }
+        
+        .question {
+            background-color: #f9f9f9;
+            padding: 25px;
+            margin-bottom: 25px;
+            border-radius: 8px;
+            border-left: 5px solid #4CAF50;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+        
+        .question h3 {
+            color: #2E7D32;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .question-number {
+            background-color: #4CAF50;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+        }
+        
+        .options {
+            margin-top: 15px;
+        }
+        
+        .option {
+            margin-bottom: 12px;
+            padding: 12px 15px;
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+        }
+        
+        .option:hover {
+            background-color: #f1f8e9;
+            border-color: #c8e6c9;
+        }
+        
+        .option.selected {
+            background-color: #e8f5e9;
+            border-color: #4CAF50;
+            border-left-width: 4px;
+        }
+        
+        .option-letter {
+            display: inline-block;
+            width: 25px;
+            height: 25px;
+            background-color: #e0e0e0;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 25px;
+            margin-right: 15px;
+            font-weight: bold;
+            color: #555;
+        }
+        
+        .option.selected .option-letter {
+            background-color: #4CAF50;
+            color: white;
+        }
+        
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+        
+        .action-btn {
+            padding: 12px 25px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        
+        .action-btn:hover {
+            background-color: #388E3C;
+        }
+        
+        .action-btn.secondary {
+            background-color: #f1f8e9;
+            color: #2E7D32;
+            border: 1px solid #c8e6c9;
+        }
+        
+        .action-btn.secondary:hover {
+            background-color: #e8f5e9;
+        }
+        
+        .result-container {
+            display: none;
+            text-align: center;
+            padding: 40px 20px;
+        }
+        
+        .result-box {
+            background-color: #f1f8e9;
+            border-radius: 10px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .score-circle {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background-color: #4CAF50;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 30px;
+            font-weight: bold;
+        }
+        
+        .score-value {
+            font-size: 48px;
+            line-height: 1;
+        }
+        
+        .score-total {
+            font-size: 20px;
+            opacity: 0.9;
+        }
+        
+        .result-message {
+            font-size: 22px;
+            color: #2E7D32;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+        
+        .result-details {
+            font-size: 18px;
+            margin-bottom: 30px;
+        }
+        
+        .restart-btn {
+            padding: 15px 40px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+            margin: 10px;
+        }
+        
+        .restart-btn:hover {
+            background-color: #388E3C;
+        }
+        
+        .switch-test-btn {
+            padding: 12px 25px;
+            background-color: #f1f8e9;
+            color: #2E7D32;
+            border: 1px solid #c8e6c9;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px;
+        }
+        
+        .progress-bar {
+            height: 8px;
+            background-color: #e0e0e0;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+        
+        .progress {
+            height: 100%;
+            background-color: #4CAF50;
+            border-radius: 4px;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+        
+        .timer {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #666;
+            font-weight: bold;
+        }
+        
+        .timer-icon {
+            color: #4CAF50;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+            border-top: 1px solid #eee;
+            font-size: 14px;
+        }
+        
+        @media (max-width: 768px) {
+            .test-selector {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .test-btn {
+                width: 100%;
+                max-width: 300px;
+            }
+            
+            .controls {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .action-btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Тесты по социальному проектированию</h1>
+            <p class="subtitle">Проверьте свои знания о социальных проблемах, целевых группах, целях и результатах проектов</p>
+            
+            <div class="test-selector">
+                <div class="test-btn active" data-test="1">Тест 1: Основные понятия</div>
+                <div class="test-btn" data-test="2">Тест 2: Цели и результаты</div>
+            </div>
+        </header>
+        
+        <div class="test-info">
+            <div class="test-title">Тест 1: Основные понятия социального проектирования</div>
+            <div class="timer">
+                <span class="timer-icon">⏱️</span> <span id="timer">--:--</span>
+            </div>
+        </div>
+        
+        <div class="content">
+            <!-- Интро перед началом теста -->
+            <div class="test-intro" id="test-intro">
+                <h2>Готовы проверить свои знания?</h2>
+                <p>В этом тесте <span id="questions-count">12</span> вопросов с выбором одного правильного ответа.</p>
+                <p>На прохождение теста рекомендуется выделить 15-20 минут.</p>
+                <p>После завершения вы увидите свой результат и сможете пройти тест заново.</p>
+                <button class="start-btn" id="start-test">Начать тест</button>
+            </div>
+            
+            <!-- Прогресс теста -->
+            <div class="progress-bar">
+                <div class="progress" id="progress"></div>
+            </div>
+            
+            <!-- Контейнер для вопросов -->
+            <div id="questions-container" class="question-container"></div>
+            
+            <!-- Результаты теста -->
+            <div class="result-container" id="result-container">
+                <div class="result-box">
+                    <div class="score-circle">
+                        <div class="score-value" id="score-value">0</div>
+                        <div class="score-total" id="score-total">из 0</div>
+                    </div>
+                    <div class="result-message" id="result-message"></div>
+                    <div class="result-details" id="result-details"></div>
+                </div>
+                
+                <button class="restart-btn" id="restart-btn">Пройти тест заново</button>
+                <button class="switch-test-btn" id="switch-test-btn">Перейти к другому тесту</button>
+            </div>
+        </div>
+        
+        <footer>
+            <p>Тесты по социальному проектированию для НКО. Все вопросы основаны на реальных практиках грантовых заявок.</p>
+        </footer>
+    </div>
+
+    <script>
+        // Данные теста 1 (12 вопросов)
+        const test1Data = [
+            {
+                question: "Что из перечисленного лучше всего отражает понятие социальной проблемы в проекте?",
+                options: [
+                    "Тема, которая кажется важной команде проекта",
+                    "Неудовлетворительное состояние конкретной целевой группы, которое возможно изменить к лучшему",
+                    "Любая острая социальная тема, о которой пишут СМИ",
+                    "Любое нарушение закона на территории проекта"
+                ],
+                correct: 1
+            },
+            {
+                question: "Какое утверждение о связи проблемы и целевой группы верно?",
+                options: [
+                    "Проблема может быть сформулирована без указания целевой группы",
+                    "Целевая группа определяется после формулирования проблемы",
+                    "Проблема и целевая группа неразрывно связаны и описываются вместе",
+                    "Целевая группа --- это все жители региона, поэтому можно не уточнять"
+                ],
+                correct: 2
+            },
+            {
+                question: "Какой из вариантов --- пример некорректно сформулированной проблемы для заявки НКО?",
+                options: [
+                    "У нашей организации нет средств на покупку оборудования для тренингов",
+                    "Подростки посёлка не знают, как безопасно вести себя в интернете",
+                    "Пожилые жители села испытывают дефицит общения",
+                    "Родители детей с ОВЗ не владеют информацией о доступных услугах сопровождения"
+                ],
+                correct: 0
+            },
+            {
+                question: "Какой вариант формулировки ближе всего к правильной структуре: «целевая группа -- что не устраивает -- как должно быть»?",
+                options: [
+                    "В районе нет приюта для животных, его нужно открыть",
+                    "Пожилые люди нашего района чувствуют себя одиноко и не знают о доступных формах общения, им нужно обеспечить регулярные возможности для общения с ровесниками",
+                    "В нашем районе нужно развивать добровольчество среди молодёжи",
+                    "Не хватает мероприятий по экологии, нужно провести субботник"
+                ],
+                correct: 1
+            },
+            {
+                question: "Зачем НКО изучать целевую группу и её проблему, если сотрудники «и так давно с ними работают»?",
+                options: [
+                    "Внешние требования грантодателя, реальной пользы нет",
+                    "Чтобы уточнить актуальность проблемы, её масштаб и причины, а также избежать искажений личного восприятия",
+                    "Чтобы увеличить количество страниц в заявке",
+                    "Чтобы оправдать необходимость финансирования"
+                ],
+                correct: 1
+            },
+            {
+                question: "Как НКО стоит действовать, если в ходе исследования выяснилось, что первоначальная гипотеза о проблеме была неверной?",
+                options: [
+                    "Игнорировать результаты и придерживаться исходной идеи проекта",
+                    "Скорректировать формулировку проблемы и, при необходимости, концепцию проекта",
+                    "Завершить проект и больше не заниматься этой темой",
+                    "Сменить целевую группу без дополнительных уточнений"
+                ],
+                correct: 1
+            },
+            {
+                question: "Какое утверждение о целевой группе верно для заявки НКО?",
+                options: [
+                    "Целевая группа --- это все жители страны",
+                    "Целевая группа должна быть конкретной, иметь общие социально-демографические характеристики и связанной с проблемой",
+                    "Целевая группа определяется только по возрасту",
+                    "Целевая группа --- это все, кто потенциально может увидеть новости проекта"
+                ],
+                correct: 1
+            },
+            {
+                question: "Какую ошибку в формулировке проблемы чаще всего делают НКО?",
+                options: [
+                    "Описывают проблему через нехватку ресурсов организации, а не через потребности людей",
+                    "Уточняют целевую группу и её состояние",
+                    "Прописывают причины проблемы",
+                    "Сразу связывают проблему с ожидаемыми изменениями"
+                ],
+                correct: 0
+            },
+            {
+                question: "Какое высказывание лучше всего отражает принцип «одна проблема -- один проект»?",
+                options: [
+                    "В один проект можно включить любое количество несвязанных проблем",
+                    "В рамках одного проекта важно сфокусироваться на одной чётко сформулированной проблеме целевой группы",
+                    "Проект не должен иметь ограничений по числу проблем",
+                    "Проблему можно менять по ходу реализации без обоснования"
+                ],
+                correct: 1
+            },
+            {
+                question: "Проект будет эффективным только тогда, когда...",
+                options: [
+                    "На него будет выделен крупный грант.",
+                    "В нём будет задействовано много волонтёров.",
+                    "Удастся устранить именно причины проблемы, а не её следствия.",
+                    "Он получит освещение в СМИ."
+                ],
+                correct: 2
+            },
+            {
+                question: "Сколько целевых групп должно быть у одной проблемы в правильно выстроенном проекте?",
+                options: [
+                    "Одна.",
+                    "Не менее двух.",
+                    "Столько, сколько удастся охватить.",
+                    "Это не имеет значения."
+                ],
+                correct: 0
+            },
+            {
+                question: "Что подразумевается под «конкретикой» проблемы?",
+                options: [
+                    "Красивые общие формулировки.",
+                    "Понимание, сколько людей на конкретной территории сталкиваются с проблемой или испытывают потребность, почему, что им мешает.",
+                    "Мнение только руководства организации.",
+                    "Данные по стране в целом."
+                ],
+                correct: 1
+            }
+        ];
+
+        // Данные теста 2 (21 вопрос)
+        const test2Data = [
+            {
+                question: "Что отражает цель социального проекта с точки зрения проектирования?",
+                options: [
+                    "Перечень запланированных мероприятий",
+                    "Переход от проблемы к результату целевой группы",
+                    "Объем привлеченных ресурсов",
+                    "Географию реализации проекта"
+                ],
+                correct: 1
+            },
+            {
+                question: "Выберите правильную формулировку цели проекта при проблеме «школьники 5-7 классов не знают историю родного края»:",
+                options: [
+                    "Повышение уровня патриотического воспитания школьников",
+                    "Приобщить школьников 5-7 классов к изучению истории, культуры и традиций родного края",
+                    "Организация экскурсий по историческим местам",
+                    "Создание условий для изучения краеведения"
+                ],
+                correct: 1
+            },
+            {
+                question: "Верно ли утверждение: «У социального проекта может быть несколько целей, если он решает разные проблемы одной целевой группы»?",
+                options: [
+                    "Да, чем больше целей, тем масштабнее проект",
+                    "Да, но только если цели взаимосвязаны",
+                    "Нет, у проекта должна быть одна цель, направленная на решение одной проблемы одной целевой группы",
+                    "Нет, у проекта может быть только одна задача"
+                ],
+                correct: 2
+            },
+            {
+                question: "Что НЕ входит в обязательные элементы правильной формулировки цели?",
+                options: [
+                    "Указание целевой группы",
+                    "Конкретные изменения у целевой группы",
+                    "Перечень мероприятий для достижения цели",
+                    "Количественный показатель"
+                ],
+                correct: 2
+            },
+            {
+                question: "Как проверить логическую связь между проблемой и целью?",
+                options: [
+                    "Убедиться, что цель шире проблемы",
+                    "Проверить, что решение цели полностью устраняет проблему",
+                    "Убедиться, что цель соответствует грантовым приоритетам",
+                    "Проверить, что цель достижима в рамках бюджета"
+                ],
+                correct: 1
+            },
+            {
+                question: "Какая цель сформулирована слишком размыто?",
+                options: [
+                    "Обучить 50 подростков из семей в трудной жизненной ситуации основам программирования",
+                    "Повысить уровень информационной культуры молодежи города",
+                    "Помочь 30 бездомным животным найти новых хозяев",
+                    "Научить 100 родителей эффективным методам воспитания детей 3-7 лет"
+                ],
+                correct: 1
+            },
+            {
+                question: "Что означает критерий «достижимость» цели?",
+                options: [
+                    "Цель должна быть амбициозной и масштабной",
+                    "Цель должна быть реализуема в рамках имеющихся ресурсов и сроков проекта",
+                    "Цель должна соответствовать ожиданиям грантодателя",
+                    "Цель должна быть легко измеримой"
+                ],
+                correct: 1
+            },
+            {
+                question: "Какой вопрос помогает проверить правильность формулировки цели?",
+                options: [
+                    "Сколько мероприятий потребуется для достижения цели?",
+                    "Какие изменения произойдут у целевой группы после реализации проекта?",
+                    "Сколько денег потребуется на реализацию цели?",
+                    "Кто будет отвечать за достижение цели?"
+                ],
+                correct: 1
+            },
+            {
+                question: "Что является главным результатом социального проекта?",
+                options: [
+                    "Проведенные мероприятия",
+                    "Решение проблемы или удовлетворение потребности целевой группы",
+                    "Привлеченные партнеры",
+                    "Опубликованные отчеты"
+                ],
+                correct: 1
+            },
+            {
+                question: "Как соотносятся проблема и результат в правильно спроектированном проекте?",
+                options: [
+                    "Результат должен быть более масштабным, чем проблема",
+                    "Проблема и результат должны быть «зеркальны» и соответствовать друг другу",
+                    "Результат может не иметь прямой связи с проблемой",
+                    "Проблема устраняется автоматически после проведения мероприятий"
+                ],
+                correct: 1
+            },
+            {
+                question: "Какой качественный результат правильно сформулирован для проекта по обучению пенсионеров компьютерной грамотности?",
+                options: [
+                    "Улучшение качества жизни пенсионеров",
+                    "Пенсионеры научились самостоятельно выходить в интернет, пользоваться электронной почтой и государственными порталами",
+                    "Повышение цифровой грамотности",
+                    "Пенсионеры стали чаще общаться с родственниками"
+                ],
+                correct: 1
+            },
+            {
+                question: "Какой метод НЕ используется для измерения качественных результатов?",
+                options: [
+                    "Тестирование до и после",
+                    "Наблюдение за поведением участников",
+                    "Подсчет количества проведенных мероприятий",
+                    "Глубинные интервью с участниками"
+                ],
+                correct: 2
+            },
+            {
+                question: "Какой качественный результат соответствует проблеме «подростки не умеют управлять своими эмоциями»?",
+                options: [
+                    "Проведены тренинги по эмоциональному интеллекту",
+                    "Подростки научились распознавать свои эмоции и применять техники саморегуляции в стрессовых ситуациях",
+                    "Повышена психологическая устойчивость подростков",
+                    "Улучшено эмоциональное состояние подростков"
+                ],
+                correct: 1
+            },
+            {
+                question: "Почему важно разделять количественные и качественные результаты?",
+                options: [
+                    "Это требование грантодателей",
+                    "Количественные показывают масштаб, качественные - глубину изменений",
+                    "Количественные результаты важнее качественных",
+                    "Это упрощает составление отчетности"
+                ],
+                correct: 1
+            },
+            {
+                question: "Что устраняют задачи в социальном проекте?",
+                options: [
+                    "Саму проблему целевой группы",
+                    "Причины существования проблемы",
+                    "Препятствия на пути к получению гранта",
+                    "Недостаток ресурсов"
+                ],
+                correct: 1
+            },
+            {
+                question: "Выберите типичную ошибку при формулировании задач:",
+                options: [
+                    "Задача соответствует выявленной причине проблемы",
+                    "Вместо задачи указано конкретное мероприятие (например, «написать сценарий»)",
+                    "Задача решается комплексом мероприятий",
+                    "Задача имеет измеримый результат"
+                ],
+                correct: 1
+            },
+            {
+                question: "Что НЕ входит в задачи проекта?",
+                options: [
+                    "Обучение целевой группы новым навыкам",
+                    "Первичный сбор команды проекта",
+                    "Психологическая поддержка участников",
+                    "Информирование целевой группы"
+                ],
+                correct: 1
+            },
+            {
+                question: "Как проверить, что задача действительно устраняет причину проблемы?",
+                options: [
+                    "Убедиться, что после решения задачи проблема будет решена",
+                    "Проверить логическую связь: устранение причины → решение проблемы",
+                    "Убедиться, что задача соответствует грантовым требованиям",
+                    "Проверить, достаточно ли ресурсов для решения задачи"
+                ],
+                correct: 1
+            },
+            {
+                question: "Какая формулировка является задачей, а не мероприятием?",
+                options: [
+                    "Написать сценарий спектакля",
+                    "Сформировать у подростков навыки публичных выступлений",
+                    "Провести репетицию спектакля",
+                    "Напечатать афиши"
+                ],
+                correct: 1
+            },
+            {
+                question: "Сколько задач обычно имеет социальный проект?",
+                options: [
+                    "Ровно столько, сколько причин проблемы выявлено в анализе",
+                    "От 2 до 5 задач",
+                    "Чем больше задач, тем лучше проработан проект",
+                    "Всегда одна задача"
+                ],
+                correct: 1
+            },
+            {
+                question: "Как связаны задачи и результаты проекта?",
+                options: [
+                    "Каждая задача имеет свой промежуточный результат, совокупность которых формирует общий результат проекта",
+                    "Задачи и результаты - одно и то же",
+                    "Результаты достигаются независимо от задач",
+                    "Задачи измеряются количественно, результаты - качественно"
+                ],
+                correct: 0
+            }
+        ];
+
+        // Глобальные переменные
+        let currentTest = 1;
+        let currentQuestions = test1Data;
+        let userAnswers = [];
+        let testStarted = false;
+        let startTime = null;
+        let timerInterval = null;
+
+        // Элементы DOM
+        const testIntro = document.getElementById('test-intro');
+        const questionsContainer = document.getElementById('questions-container');
+        const resultContainer = document.getElementById('result-container');
+        const startBtn = document.getElementById('start-test');
+        const restartBtn = document.getElementById('restart-btn');
+        const switchTestBtn = document.getElementById('switch-test-btn');
+        const progressBar = document.getElementById('progress');
+        const testBtns = document.querySelectorAll('.test-btn');
+        const testTitle = document.querySelector('.test-title');
+        const questionsCount = document.getElementById('questions-count');
+        const timerElement = document.getElementById('timer');
+
+        // Инициализация
+        document.addEventListener('DOMContentLoaded', function() {
+            // Обработчики для кнопок выбора теста
+            testBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    // Убираем активный класс у всех кнопок
+                    testBtns.forEach(b => b.classList.remove('active'));
+                    // Добавляем активный класс нажатой кнопке
+                    this.classList.add('active');
+                    
+                    // Меняем текущий тест
+                    currentTest = parseInt(this.getAttribute('data-test'));
+                    currentQuestions = currentTest === 1 ? test1Data : test2Data;
+                    
+                    // Обновляем информацию о тесте
+                    updateTestInfo();
+                    
+                    // Сбрасываем тест
+                    resetTest();
+                });
+            });
+            
+            // Обработчик для кнопки "Начать тест"
+            startBtn.addEventListener('click', startTest);
+            
+            // Обработчик для кнопки "Пройти тест заново"
+            restartBtn.addEventListener('click', restartTest);
+            
+            // Обработчик для кнопки "Перейти к другому тесту"
+            switchTestBtn.addEventListener('click', function() {
+                // Определяем, какой тест сейчас активен
+                const nextTest = currentTest === 1 ? 2 : 1;
+                
+                // Нажимаем соответствующую кнопку теста
+                document.querySelector(`.test-btn[data-test="${nextTest}"]`).click();
+                
+                // Запускаем новый тест
+                startTest();
+            });
+            
+            // Обновляем информацию о тесте
+            updateTestInfo();
+        });
+
+        // Функция обновления информации о тесте
+        function updateTestInfo() {
+            const testName = currentTest === 1 ? 
+                "Тест 1: Основные понятия социального проектирования" : 
+                "Тест 2: Цели и результаты социальных проектов";
+            
+            testTitle.textContent = testName;
+            questionsCount.textContent = currentQuestions.length;
+            
+            // Обновляем кнопку переключения теста
+            const otherTestName = currentTest === 1 ? "Перейти к тесту 2" : "Перейти к тесту 1";
+            switchTestBtn.textContent = otherTestName;
+        }
+
+        // Функция начала теста
+        function startTest() {
+            testStarted = true;
+            userAnswers = new Array(currentQuestions.length).fill(null);
+            
+            // Скрываем интро, показываем вопросы
+            testIntro.style.display = 'none';
+            questionsContainer.style.display = 'block';
+            resultContainer.style.display = 'none';
+            
+            // Запускаем таймер
+            startTime = new Date();
+            updateTimer();
+            timerInterval = setInterval(updateTimer, 1000);
+            
+            // Рендерим вопросы
+            renderQuestions();
+            
+            // Обновляем прогресс
+            updateProgress();
+        }
+
+        // Функция рендеринга вопросов
+        function renderQuestions() {
+            questionsContainer.innerHTML = '';
+            
+            currentQuestions.forEach((question, index) => {
+                const questionElement = document.createElement('div');
+                questionElement.className = 'question';
+                questionElement.innerHTML = `
+                    <h3><span class="question-number">${index + 1}</span> ${question.question}</h3>
+                    <div class="options">
+                        ${question.options.map((option, optionIndex) => `
+                            <div class="option ${userAnswers[index] === optionIndex ? 'selected' : ''}" 
+                                 data-question="${index}" 
+                                 data-option="${optionIndex}">
+                                <span class="option-letter">${String.fromCharCode(65 + optionIndex)}</span>
+                                <span class="option-text">${option}</span>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+                
+                questionsContainer.appendChild(questionElement);
+            });
+            
+            // Добавляем кнопки управления
+            const controlsElement = document.createElement('div');
+            controlsElement.className = 'controls';
+            controlsElement.innerHTML = `
+                <button class="action-btn secondary" id="prev-btn" ${userAnswers.every(a => a === null) ? 'disabled' : ''}>Назад к вопросам</button>
+                <button class="action-btn" id="submit-btn">Завершить тест</button>
+            `;
+            
+            questionsContainer.appendChild(controlsElement);
+            
+            // Добавляем обработчики для вариантов ответа
+            document.querySelectorAll('.option').forEach(option => {
+                option.addEventListener('click', function() {
+                    const questionIndex = parseInt(this.getAttribute('data-question'));
+                    const optionIndex = parseInt(this.getAttribute('data-option'));
+                    
+                    // Сохраняем ответ пользователя
+                    userAnswers[questionIndex] = optionIndex;
+                    
+                    // Обновляем отображение выбранного варианта
+                    document.querySelectorAll(`.option[data-question="${questionIndex}"]`).forEach(opt => {
+                        opt.classList.remove('selected');
+                    });
+                    this.classList.add('selected');
+                    
+                    // Обновляем прогресс
+                    updateProgress();
+                    
+                    // Активируем кнопку "Назад к вопросам", если есть ответы
+                    if (userAnswers.some(a => a !== null)) {
+                        document.getElementById('prev-btn').disabled = false;
+                    }
+                });
+            });
+            
+            // Обработчик для кнопки "Завершить тест"
+            document.getElementById('submit-btn').addEventListener('click', submitTest);
+            
+            // Обработчик для кнопки "Назад к вопросам"
+            document.getElementById('prev-btn').addEventListener('click', function() {
+                // Просто обновляем отображение вопросов (они уже отображены)
+                // Кнопка нужна для возврата после просмотра результатов
+                resultContainer.style.display = 'none';
+                questionsContainer.style.display = 'block';
+            });
+        }
+
+        // Функция обновления прогресса
+        function updateProgress() {
+            const answeredCount = userAnswers.filter(a => a !== null).length;
+            const totalCount = currentQuestions.length;
+            const progressPercent = (answeredCount / totalCount) * 100;
+            
+            progressBar.style.width = `${progressPercent}%`;
+        }
+
+        // Функция обновления таймера
+        function updateTimer() {
+            if (!startTime) return;
+            
+            const now = new Date();
+            const diff = Math.floor((now - startTime) / 1000); // Разница в секундах
+            
+            const minutes = Math.floor(diff / 60);
+            const seconds = diff % 60;
+            
+            timerElement.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }
+
+        // Функция завершения теста
+        function submitTest() {
+            // Останавливаем таймер
+            clearInterval(timerInterval);
+            
+            // Проверяем, все ли вопросы отвечены
+            const answeredCount = userAnswers.filter(a => a !== null).length;
+            const totalCount = currentQuestions.length;
+            
+            if (answeredCount < totalCount) {
+                if (!confirm(`Вы ответили только на ${answeredCount} из ${totalCount} вопросов. Завершить тест?`)) {
+                    return;
+                }
+            }
+            
+            // Подсчитываем результат
+            let score = 0;
+            currentQuestions.forEach((question, index) => {
+                if (userAnswers[index] === question.correct) {
+                    score++;
+                }
+            });
+            
+            // Показываем результаты
+            showResults(score, totalCount);
+        }
+
+        // Функция показа результатов
+        function showResults(score, total) {
+            // Скрываем вопросы, показываем результаты
+            questionsContainer.style.display = 'none';
+            resultContainer.style.display = 'block';
+            
+            // Обновляем результаты
+            document.getElementById('score-value').textContent = score;
+            document.getElementById('score-total').textContent = `из ${total}`;
+            
+            const percentage = Math.round((score / total) * 100);
+            document.getElementById('result-details').textContent = 
+                `Вы ответили правильно на ${score} из ${total} вопросов (${percentage}%)`;
+            
+            // Определяем сообщение в зависимости от результата
+            let message = '';
+            if (percentage >= 90) {
+                message = 'Отличный результат! Вы прекрасно разбираетесь в теме!';
+            } else if (percentage >= 75) {
+                message = 'Хороший результат! Вы хорошо понимаете основы социального проектирования.';
+            } else if (percentage >= 60) {
+                message = 'Удовлетворительный результат. Есть над чем поработать.';
+            } else if (percentage >= 40) {
+                message = 'Результат ниже среднего. Рекомендуем изучить материалы по социальному проектированию.';
+            } else {
+                message = 'Попробуйте пройти тест еще раз после изучения материалов.';
+            }
+            
+            document.getElementById('result-message').textContent = message;
+        }
+
+        // Функция сброса теста
+        function resetTest() {
+            userAnswers = [];
+            testStarted = false;
+            
+            // Сбрасываем таймер
+            clearInterval(timerInterval);
+            timerElement.textContent = '--:--';
+            
+            // Сбрасываем прогресс
+            progressBar.style.width = '0%';
+            
+            // Показываем интро, скрываем вопросы и результаты
+            testIntro.style.display = 'block';
+            questionsContainer.style.display = 'none';
+            resultContainer.style.display = 'none';
+            
+            // Обновляем информацию о тесте
+            updateTestInfo();
+        }
+
+        // Функция перезапуска теста
+        function restartTest() {
+            resetTest();
+            startTest();
+        }
+    </script>
+</body>
+</html>
